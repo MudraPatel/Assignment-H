@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.assignment.heady.listItems.MainActivity"
+    tools:showIn="@layout/activity_main"
+    android:background="@color/bg_color"
+    >
+
+    <TextView
+        android:id="@+id/hot_item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/recents_search_item"
+        android:padding="10dp"
+        android:textColor="@color/solid_black"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_size_item"
+        android:layout_margin="06dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_ranking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/hot_item_layout"
+        />
+
+    <TextView
+        android:id="@+id/categories_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/categories"
+        android:layout_below="@id/recycler_view_ranking"
+        android:padding="10dp"
+        android:textColor="@color/solid_black"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_size_item"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/categories_layout"
+
+       />
+
+</RelativeLayout>
