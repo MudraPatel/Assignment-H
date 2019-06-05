@@ -2,6 +2,7 @@ package com.assignment.heady.listItems;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.assignment.heady.db.ProductModel;
 import com.assignment.heady.db.RankingModel;
 
 import java.util.List;
+import java.util.Random;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,12 +42,16 @@ public class RecyclerViewRankingAdapter extends RecyclerView.Adapter<RecyclerVie
     @Override
     public void onBindViewHolder(final RecyclerViewHolder holder, final int position) {
         final RankingModel model = rankingModels.get(position);
-        Log.e("String ONCLICK", position + "::"+ model.getRanking());
         holder.itemTextView.setText(model.getRanking());
+
+        Random rnd = new Random();
+        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+        holder.imageView.setColorFilter(color);
+        holder.layout.setPadding(8,0,0,0);
+
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Log.e("String ONCLICK", position + "::"+ model.getProducts()[0].getvariableInString());
                 int[] productArray = new int[model.getProductModels().size()];
                 int i = 0;
                 for(ProductModel productModel: model.getProductModels()){

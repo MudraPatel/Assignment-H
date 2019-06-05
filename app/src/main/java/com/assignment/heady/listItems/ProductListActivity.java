@@ -1,6 +1,7 @@
 package com.assignment.heady.listItems;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -9,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.assignment.heady.R;
@@ -18,7 +22,7 @@ import com.assignment.heady.db.ProductModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductListActivity extends AppCompatActivity {
+public class ProductListActivity extends AppCompatActivity implements View.OnClickListener {
 
     RecyclerView recyclerView;
     ProductListAdapter productListAdapter;
@@ -26,6 +30,9 @@ public class ProductListActivity extends AppCompatActivity {
     int id;
     int[] ids;
     boolean categoryStatus;
+    TextView headerText;
+    Toolbar toolbar;
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,13 @@ public class ProductListActivity extends AppCompatActivity {
             Log.e("ID, ", ids.toString() + "***");
 
         }
+
+
+        toolbar = findViewById(R.id.toolbar_header);
+        headerText = findViewById(R.id.header_text);
+        back = toolbar.findViewById(R.id.iv_back);
+        back.setOnClickListener(this);
+        headerText.setText(getString(R.string.product_list));
 
         recyclerView = findViewById(R.id.recyclerView);
         productListAdapter = new ProductListAdapter(this, new ArrayList<ProductModel>());
@@ -84,5 +98,10 @@ public class ProductListActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        onBackPressed();
     }
 }

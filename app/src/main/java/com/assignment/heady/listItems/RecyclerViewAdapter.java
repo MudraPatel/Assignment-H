@@ -4,6 +4,8 @@ import android.content.Context;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,9 @@ import android.widget.TextView;
 import com.assignment.heady.R;
 import com.assignment.heady.db.CategoriesModel;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder> {
 
@@ -37,8 +41,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(final RecyclerViewHolder holder, final int position) {
         final CategoriesModel model = categoriesModels.get(position);
-//        Log.e("String ONCLICK", position + "::"+ model.toString());
         holder.itemTextView.setText(model.getName());
+
+        Random rnd = new Random();
+        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+        holder.imageView.setColorFilter(color);
+
+
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,6 +71,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.categoriesModels = categoriesModels;
         notifyDataSetChanged();
 
+    }
+
+    public void setFilter(List<CategoriesModel> countryModels) {
+        categoriesModels = new ArrayList<>();
+        categoriesModels.addAll(countryModels);
+        notifyDataSetChanged();
     }
 
     static class RecyclerViewHolder extends RecyclerView.ViewHolder {

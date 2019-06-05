@@ -1,5 +1,6 @@
 package com.assignment.heady.listItems;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -11,12 +12,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,7 +35,7 @@ import com.assignment.heady.network.Network;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, View.OnClickListener {
 
     private DataListViewModel viewModel;
     private RecyclerViewAdapter recyclerViewAdapter;
@@ -38,6 +43,12 @@ public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver mNetworkReceiver;
     ProgressDialog progress;
     RecyclerViewRankingAdapter recyclerViewRankingAdapter;
+    LinearLayout search_layout;
+    SearchView search;
+    List<CategoriesModel> categoriesList;
+    RelativeLayout rankingLayout;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         if(Network.isInternetAvailable(MainActivity.this))
             viewModel.loadData();
 
+        search = findViewById(R.id.search);
+        search_layout = findViewById(R.id.layout_search);
+        rankingLayout = findViewById(R.id.raking_layout);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerViewRanking = findViewById(R.id.recycler_view_ranking);
@@ -55,11 +69,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewRankingAdapter =  new RecyclerViewRankingAdapter(this, new ArrayList<RankingModel>());
 
 
-        /*recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        DividerItemDecoration itemDecorator = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        itemDecorator.setDrawable(getResources().getDrawable( R.drawable.divider));
-        recyclerView.addItemDecoration(itemDecorator);
-        recyclerView.setAdapter(recyclerViewAdapter);*/
         recyclerViewRanking.setLayoutManager(new LinearLayoutManager(this));
         LinearLayoutManager  mLayoutManagerHori = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mLayoutManagerHori.setReverseLayout(false);
@@ -80,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //                Log.e("TEST Category", categoriesModels.size() + "LENGHT" + categoriesModels.get(0).getName());
                 recyclerViewAdapter.addItems(categoriesModels);
+                categoriesList = categoriesModels;
             }
         });
 
@@ -89,8 +99,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("TEST Product", productModels.size() + "LENGHT");
             }
         });
-
-
 
         viewModel.getRankingList().observe(this, new Observer<List<RankingModel>>() {
             @Override
@@ -102,23 +110,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        search.setOnQueryTextListener(this);
+        search.setOnClickListener(this);
 
-//        else
-//            viewModel.deleteItem();
-        final Handler handler = new Handler();
+        search.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                rankingLayout.setVisibility(View.VISIBLE);
 
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                //Do something after 100ms
-//                if(progress != null)
-//                    progress.dismiss();
-//
-//                setData();
-//
-//            }
-//        }, 5000);
-
+                return false;
+            }
+        });
 
     }
 
@@ -155,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -166,4 +167,42 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        final List<CategoriesModel> filteredModelList = filter(categoriesList, newText);
+
+        recyclerViewAdapter.setFilter(filteredModelList);
+        return true;
+    }
+
+    private List<CategoriesModel> filter(List<CategoriesModel> models, String query) {
+        query = query.toLowerCase();
+        final List<CategoriesModel> filteredModelList = new ArrayList<>();
+
+        for (CategoriesModel model : models) {
+            final String name = model.getName().toLowerCase();
+//            final String houseName = model.getHouseName().toLowerCase();
+            if (name.contains(query)) {
+                filteredModelList.add(model);
+            }
+        }
+        return filteredModelList;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.search:
+                search.setIconified(false);
+                rankingLayout.setVisibility(View.GONE);
+                break;
+        }
+
+
+    }
 }

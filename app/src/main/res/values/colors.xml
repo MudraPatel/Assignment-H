@@ -3,9 +3,44 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="toolbar_bg">#303F9F</color>
     <color name="white">#fff</color>
     <color name="gray">#949292</color>
-    <color name="bg_color">#FFFCFC</color>
+    <color name="bg_color">#FFFFFF</color>
     <color name="green">#197920</color>
     <color name="red">#F31A1A</color>
+    <color name="yellow">#FFC107</color>
+    <color name="bg_fragment">#E7E4E4</color>
+    <color name="light_grey">#D8F5F3F3</color>
+
+
+    <string-array name="colors">
+        <item>#ff0000</item>
+        <item>#2FC72F</item>
+        <item>#0000ff</item>
+        <item>#E91E63</item>
+        <item>#FFC107</item>
+        <item>#CEF6F6F7</item>   <!-- is not white color bcoz background and image color get same and is not visible so temporary we have kept grey color-->
+        <item>#070707</item>
+        <item>#817F7F</item>
+        <item>#BEBBBB</item>
+        <item>#3493DD</item>
+        <item>#300906</item>
+        <item>#9B5F08</item>
+    </string-array>
+
+    <string-array name="colors_name">
+        <item>Red</item>
+        <item>Green</item>
+        <item>Blue</item>
+        <item>Pink</item>
+        <item>Yellow</item>
+        <item>White</item>
+        <item>Black</item>
+        <item>Grey</item>
+        <item>Silver</item>
+        <item>Light Blue</item>
+        <item>Brown</item>
+        <item>Golden</item>
+    </string-array>
 </resources>

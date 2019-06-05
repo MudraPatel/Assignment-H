@@ -15,8 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".listItems.ProductListActivity"></activity>
-        <activity android:name=".listItems.DetailsActivity" />
+        <activity android:name=".listItems.ProductListActivity"
+            android:theme="@style/titlebar"/>
+        <activity android:name=".listItems.DetailsActivity"
+            android:theme="@style/titlebar"/>
         <activity
             android:name=".listItems.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

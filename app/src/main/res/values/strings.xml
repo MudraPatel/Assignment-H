@@ -4,14 +4,6 @@
     <string name="title_activity_add">AddActivity</string>
     <string name="item_name">Item Name</string>
 
-    <string name="person_name">Person Name</string>
-    <string name="set_date">Set Date</string>
-    <string name="username">Username: </string>
-    <string name="personname">Name: </string>
-    <string name="email">Email: </string>
-    <string name="phone">Phone: </string>
-    <string name="website">Website: </string>
-    <string name="address">Address:</string>
 
 
     <string name="content_description">Content Description</string>
@@ -21,4 +13,11 @@
     <string name="categories">Categories</string>
     <string name="recents_search_item">Recents Search Item</string>
     <string name="loading">Loading</string>
+    <string name="product_details">Product Details</string>
+    <string name="product_list">Product List</string>
+    <string name="description">Cheer on your favorite red and white team in eye-popping style with these product! Each pair is made of 100 percent cotton for a comfortable, breathable fit regardless of the weather and includes easily adjustable shoulder straps for fans with long torsos. </string>
+    <string name="size">Size</string>
+    <string name="add_to_cart">Add To Cart</string>
+    <string name="buy_now">Buy Now</string>
+    <string name="product_name">Product Name</string>
 </resources>
