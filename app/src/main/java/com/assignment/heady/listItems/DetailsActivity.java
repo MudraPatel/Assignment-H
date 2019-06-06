@@ -1,26 +1,18 @@
 package com.assignment.heady.listItems;
 
-import androidx.annotation.ColorInt;
-import androidx.annotation.ColorRes;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -37,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DetailsActivity extends AppCompatActivity implements ProductInterface {
-//    private DataDetailsViewModel viewModel;
     int id;
 
     TextView headerText;
@@ -73,7 +64,6 @@ public class DetailsActivity extends AppCompatActivity implements ProductInterfa
             @Override
             public void onChanged(ProductModel productModel) {
                 dataModel = productModel;
-                Log.e("PRODUCT MODEL", productModel.getName());
                 colorImage(productImage, productModel.getVariantModel().get(0).getColor());
                 tvProductName.setText(productModel.getName());
                 tvPrice.setText(String.format("Price : RS %s", productModel.getVariantModel().get(0).getPrice()));
@@ -95,16 +85,6 @@ public class DetailsActivity extends AppCompatActivity implements ProductInterfa
         linearLayout.addView(layoutViewAdd, layoutParamsAdd);
         ImageView imageView = viewAdd.findViewById(R.id.add_image);
         colorImage(imageView, variantModel.getColor());
-        /*String[] colorsTxt = getApplicationContext().getResources().getStringArray(R.array.colors);
-        String[] colorsName = getApplicationContext().getResources().getStringArray(R.array.colors_name);
-
-        int pos = new ArrayList<String>(Arrays.asList(colorsName)).indexOf(variantModel.getColor());
-        Log.e("POSITION", pos + "POSITIO");
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            int newColor = Color.parseColor(colorsTxt[pos]);
-            imageView.setColorFilter(newColor);
-        }*/
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,7 +162,6 @@ public class DetailsActivity extends AppCompatActivity implements ProductInterfa
 
     @Override
     public void getVariantData(VariantModel variantModel) {
-        Log.e("CHECK INTERFACE", variantModel.getColor() + "***");
         tvPrice.setText(String.format("Price : RS %s", variantModel.getPrice()));
         tvSize.setText(String.format("Size :  %s", variantModel.getSize()));
         colorImage(productImage, variantModel.getColor());
@@ -192,7 +171,6 @@ public class DetailsActivity extends AppCompatActivity implements ProductInterfa
         String[] colorsTxt = getApplicationContext().getResources().getStringArray(R.array.colors);
         String[] colorsName = getApplicationContext().getResources().getStringArray(R.array.colors_name);
         int pos = new ArrayList<String>(Arrays.asList(colorsName)).indexOf(stringColor);
-        Log.e("POSITION", pos + "POSITIO");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if(pos == -1)

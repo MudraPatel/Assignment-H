@@ -51,7 +51,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Log.e("String ONCLICK", position + "::"+ model.getProducts()[0].getvariableInString());
                 Intent intent = new Intent(context, ProductListActivity.class);
                 intent.putExtra("id", model.getId());
                 intent.putExtra("categoryStatus", true);

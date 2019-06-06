@@ -114,7 +114,6 @@ public class ProductDisplayFragment extends Fragment  {
             String[] colorsName = context.getApplicationContext().getResources().getStringArray(R.array.colors_name);
 
             int pos = new ArrayList<String>(Arrays.asList(colorsName)).indexOf(model.getColor());
-            Log.e("POSITION", pos + "POSITIO");
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 if(pos == -1)

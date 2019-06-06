@@ -32,7 +32,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class DataListViewModel extends AndroidViewModel {
 
     private final LiveData<List<CategoriesModel>> itemAndCategoryList ;
-    private final LiveData<List<ProductModel>> itemAndProductList ;
     private final LiveData<List<RankingModel>> rankingList ;
     private AppDatabase appDatabase;
 
@@ -42,26 +41,16 @@ public class DataListViewModel extends AndroidViewModel {
         appDatabase = AppDatabase.getDatabase(this.getApplication());
 
         itemAndCategoryList = appDatabase.itemAndCategoriesModel().getAllItems();
-        itemAndProductList = appDatabase.itemandProductModel().getAllItems();
         rankingList = appDatabase.itemandRankingModel().getAllItems();
     }
 
 
 
-
-    public LiveData<List<ProductModel>> getItemAndProductList() {
-//        LiveData<List<DataModel>> list = Network.getProjectList();
-        return itemAndProductList;
-
-    }
-
     public LiveData<List<CategoriesModel>> getItemAndCategoryList() {
-//        LiveData<List<DataModel>> list = Network.getProjectList();
         return itemAndCategoryList;
 
     }
     public LiveData<List<RankingModel>> getRankingList() {
-//        LiveData<List<DataModel>> list = Network.getProjectList();
         return rankingList;
 
     }
@@ -85,11 +74,7 @@ public class DataListViewModel extends AndroidViewModel {
 
                 //finally we are setting the list to our MutableLiveData
                 data.setValue(response.body());
-                Log.e("RES", response.body().toString());
-                Gson gson = new Gson();
-                Type type = new TypeToken<ResponseDataModel>() {}.getType();
-//                ResponseDataModel responseDataModel =  gson.fromJson(response.body().toString(), type);
-                Log.e("ON Retrofit Response", response.body().getCategoriesModel().toString() +"****");
+                Log.d("RES", response.body().toString());
 
                 for( CategoriesModel categoriesModel : response.body().getCategoriesModel()){
 

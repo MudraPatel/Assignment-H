@@ -4,24 +4,16 @@ import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.os.Build;
+
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,7 +21,6 @@ import com.assignment.heady.R;
 import com.assignment.heady.db.CategoriesModel;
 import com.assignment.heady.db.ProductModel;
 import com.assignment.heady.db.RankingModel;
-import com.assignment.heady.network.MyApplication;
 import com.assignment.heady.network.Network;
 
 import java.util.ArrayList;
@@ -40,8 +31,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private DataListViewModel viewModel;
     private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView recyclerView , recyclerViewRanking;
-    private BroadcastReceiver mNetworkReceiver;
-    ProgressDialog progress;
     RecyclerViewRankingAdapter recyclerViewRankingAdapter;
     LinearLayout search_layout;
     SearchView search;
@@ -85,25 +74,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         viewModel.getItemAndCategoryList().observe(this, new Observer<List<CategoriesModel>>() {
             @Override
             public void onChanged(List<CategoriesModel> categoriesModels) {
-//                for(CategoriesModel categoriesModel : categoriesModels) {
-//                }
-//                Log.e("TEST Category", categoriesModels.size() + "LENGHT" + categoriesModels.get(0).getName());
                 recyclerViewAdapter.addItems(categoriesModels);
                 categoriesList = categoriesModels;
             }
         });
 
-        viewModel.getItemAndProductList().observe(this, new Observer<List<ProductModel>>() {
-            @Override
-            public void onChanged(List<ProductModel> productModels) {
-                Log.e("TEST Product", productModels.size() + "LENGHT");
-            }
-        });
 
         viewModel.getRankingList().observe(this, new Observer<List<RankingModel>>() {
             @Override
             public void onChanged(List<RankingModel> rankingModels) {
-                Log.e("TEST Ranking", rankingModels.size() + "LENGHT");
                 recyclerViewRankingAdapter.addItems(rankingModels);
 
             }
@@ -124,38 +103,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     }
 
-    public void setData(){
-
-
-        viewModel.getItemAndProductList().observe(this, new Observer<List<ProductModel>>() {
-            @Override
-            public void onChanged(List<ProductModel> productModels) {
-                Log.e("TEST Product", productModels.size() + "LENGHT");
-            }
-        });
-
-
-
-        viewModel.getRankingList().observe(this, new Observer<List<RankingModel>>() {
-            @Override
-            public void onChanged(List<RankingModel> rankingModels) {
-                Log.e("TEST Ranking", rankingModels.size() + "LENGHT");
-            }
-        });
-
-        viewModel.getItemAndCategoryList().observe(this, new Observer<List<CategoriesModel>>() {
-            @Override
-            public void onChanged(List<CategoriesModel> categoriesModels) {
-//                for(CategoriesModel categoriesModel : categoriesModels) {
-//                }
-                Log.e("TEST Category", categoriesModels.size() + "LENGHT" + categoriesModels.get(0).getName());
-                recyclerViewAdapter.addItems(categoriesModels);
-            }
-        });
-
-
-
-    }
 
     @Override
     public void onDestroy() {
@@ -186,7 +133,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         for (CategoriesModel model : models) {
             final String name = model.getName().toLowerCase();
-//            final String houseName = model.getHouseName().toLowerCase();
             if (name.contains(query)) {
                 filteredModelList.add(model);
             }

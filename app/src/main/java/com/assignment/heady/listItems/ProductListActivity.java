@@ -43,12 +43,9 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
 
         if(categoryStatus){
             id = getIntent().getExtras().getInt("id");
-            Log.e("ID, ", id + "***");
 
         }else{
             ids = getIntent().getExtras().getIntArray("id");
-            Log.e("ID, ", ids.toString() + "***");
-
         }
 
 
@@ -73,13 +70,9 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
             viewModel.getItemAndProductList(id).observe(this, new Observer<List<ProductModel>>() {
                 @Override
                 public void onChanged(List<ProductModel> productModels) {
-                    for (ProductModel categoriesModel : productModels) {
-                        Log.e("TEST Category", productModels.size() + "LENGHT" + categoriesModel.getName());
-
-                    }
                     productListAdapter.addItems(productModels);
                     if (productModels.size() == 0) {
-                        Toast.makeText(ProductListActivity.this, "No Data Available", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProductListActivity.this, getString(R.string.no_data), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -87,13 +80,10 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
             viewModel.getItemAndProductListIds(ids).observe(this, new Observer<List<ProductModel>>() {
                 @Override
                 public void onChanged(List<ProductModel> productModels) {
-                    for (ProductModel categoriesModel : productModels) {
-                        Log.e("TEST Category", productModels.size() + "LENGHT" + categoriesModel.getName());
 
-                    }
                     productListAdapter.addItems(productModels);
                     if (productModels.size() == 0) {
-                        Toast.makeText(ProductListActivity.this, "No Data Available", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProductListActivity.this, getString(R.string.no_data), Toast.LENGTH_SHORT).show();
                     }
                 }
             });

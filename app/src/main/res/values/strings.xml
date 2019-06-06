@@ -20,4 +20,6 @@
     <string name="add_to_cart">Add To Cart</string>
     <string name="buy_now">Buy Now</string>
     <string name="product_name">Product Name</string>
+    <string name="no_data">No Data Available</string>
+    <string name="description_tag">Description</string>
 </resources>

@@ -44,7 +44,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     @Override
     public void onBindViewHolder(final RecyclerViewHolder holder, final int position) {
         final ProductModel model = productModels.get(position);
-//        Log.e("String ONCLICK", position + "::"+ model.toString());
         holder.itemTextView.setText(model.getName());
 
         colorImage(holder.imageView, model.getVariantModel().get(0).getColor());
@@ -52,7 +51,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Log.e("String ONCLICK", position + "::"+ model.getProducts()[0].getvariableInString());
                 Intent intent = new Intent(context, DetailsActivity.class);
                 intent.putExtra("id", model.getId());
                 context.startActivity(intent);
@@ -89,11 +87,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
     public void colorImage(ImageView imageView, String stringColor){
-        Log.e("POSITION", stringColor + "POSITIO");
         String[] colorsTxt = context.getApplicationContext().getResources().getStringArray(R.array.colors);
         String[] colorsName = context.getApplicationContext().getResources().getStringArray(R.array.colors_name);
         int pos = new ArrayList<String>(Arrays.asList(colorsName)).indexOf(stringColor);
-        Log.e("POSITION", pos + "POSITIO");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if(pos == -1)

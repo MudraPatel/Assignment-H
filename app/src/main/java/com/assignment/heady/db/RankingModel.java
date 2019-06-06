@@ -35,7 +35,4 @@ public class RankingModel {
         return productModels;
     }
 
-//    public int getId() {
-//        return id;
-//    }
 }
