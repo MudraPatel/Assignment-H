@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -46,6 +47,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         viewModel = ViewModelProviders.of(this).get(DataListViewModel.class);
         if(Network.isInternetAvailable(MainActivity.this))
             viewModel.loadData();
+        else{
+            Toast.makeText(this, getString(R.string.internet_connection), Toast.LENGTH_SHORT).show();
+        }
 
         search = findViewById(R.id.search);
         search_layout = findViewById(R.id.layout_search);
